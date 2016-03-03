@@ -54,7 +54,7 @@ class RandomTest extends \PHPUnit_Framework_TestCase
         global $mock_function_exists;
         $mock_function_exists = true;
 
-        $this->setExpectedException("RuntimeException");
+        $this->setExpectedException("BadFunctionCallException");
         Random::createRandomPseudoBytes(32);
     }
 

@@ -17,9 +17,13 @@ final class Random
     /**
      * Creates a pseudo-random string of bytes.
      * <p>
-     * openssl_random_pseudo_bytes() did not always return a cryptographically strong
-     * result. See bug report https://bugs.php.net/bug.php?id=70014 for further
-     * details. A fix is provided as of PHP 5.4.44, 5.5.28 and 5.6.12.
+     * openssl_random_pseudo_bytes() does not always return a cryptographically strong result. See bug report
+     * https://bugs.php.net/bug.php?id=70014 for further details. A fix is provided as of PHP 5.4.44, 5.5.28
+     * and 5.6.12.
+     *
+     * Although generating cryptographically secure pseudo-random bytes via random_bytes() was added
+     * to PHP in PHP 7.0, a userland polyfill implementation of random_bytes() and random_int() is available
+     * for PHP 5.2 to 5.6, inclusive. See https://github.com/paragonie/random_compat for further details.
      *
      * @param int $length The length of the desired string of bytes. Must be a positive integer.
      *
@@ -30,26 +34,16 @@ final class Random
         if ($length <= 0) {
             throw new \InvalidArgumentException("length is not a positive integer");
         }
+        if (!function_exists("random_bytes")) {
+            throw new \BadFunctionCallException("unable to call function random_bytes");
+        }
 
-        if (version_compare(PHP_VERSION, "7.0.0", ">=") && function_exists("random_bytes")) {
+        try {
             $bytes = random_bytes($length);
-            return $bytes;
-        }
-
-        if (!(version_compare(PHP_VERSION, "5.4.44", ">=") && version_compare(PHP_VERSION, "5.5.0", "<")) &&
-            !(version_compare(PHP_VERSION, "5.5.28", ">=") && version_compare(PHP_VERSION, "5.6.0", "<")) &&
-            !(version_compare(PHP_VERSION, "5.6.12", ">="))) {
-            throw new \RuntimeException("Insecure OpenSSL extension found. Please consider to update the PHP version");
-        }
-
-        if (!function_exists("openssl_random_pseudo_bytes")) {
-            throw new \RuntimeException("OpenSSL extension not loaded");
-        }
-
-        $bytes = openssl_random_pseudo_bytes($length, $strong);
-
-        if (!$strong) {
-            throw new \RuntimeException("Unable to generate a cryptographically strong result");
+        } catch (\Error $e) {
+            throw new \RuntimeException("unable to generate a cryptographically strong result");
+        } catch (\Exception $e) {
+            throw new \RuntimeException("unable to generate a cryptographically strong result");
         }
 
         return $bytes;
