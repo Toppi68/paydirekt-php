@@ -6,8 +6,8 @@ The source code demonstrates how to create valid requests for the paydirekt REST
 
 
 ## Requirements
-* PHP 5.4.44 or later, 5.5.28 or later, 5.6.12 or later, 7.0.0 or later
-* PHP OpenSSL support (for PHP 5.x.x)
+* PHP 5.4 or later
+* random_compat (for cryptographically secure pseudo-random bytes)
 
 
 ## Dev-Dependencies
