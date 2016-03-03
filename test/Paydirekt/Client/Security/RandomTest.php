@@ -49,6 +49,12 @@ class RandomTest extends \PHPUnit_Framework_TestCase
         Random::createRandomPseudoBytes(-1);
     }
 
+    public function testThatInvalidArgumentExceptionForWrongInputTypeIsRaised()
+    {
+        $this->setExpectedException("InvalidArgumentException");
+        Random::createRandomPseudoBytes("abc");
+    }
+
     public function testThatRuntimeExceptionForUndefinedFunctionsIsRaised()
     {
         global $mock_function_exists;
