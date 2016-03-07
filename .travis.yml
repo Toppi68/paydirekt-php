@@ -19,8 +19,7 @@ install:
   - composer install
 
 before_script:
-  - if [[ "$TRAVIS_PHP_VERSION" == "7.0" ]]; then wget https://curl.haxx.se/ca/cacert.pem -O /tmp/cacert.pem -np; fi
-  - if [[ "$TRAVIS_PHP_VERSION" == "7.0" ]]; then echo 'curl.cainfo=/tmp/cacert.pem' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini; fi
+  - echo "curl.cainfo=$TRAVIS_BUILD_DIR/cacert.pem" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
 script:
   - vendor/bin/phpunit
