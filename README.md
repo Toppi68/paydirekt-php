@@ -25,7 +25,7 @@ composer install
 Run the unit and integration tests with:
 
 ```
-vendor/bin/phpunit
+composer test
 ```
 
 The integration tests run against the actual sandbox endpoint.

@@ -22,5 +22,8 @@
 		"psr-4": {
 			"Paydirekt\\Client\\": "src/Paydirekt/Client/"
 		}
+	},
+	"scripts": {
+		"test" : "vendor/bin/phpunit"
 	}
 }
