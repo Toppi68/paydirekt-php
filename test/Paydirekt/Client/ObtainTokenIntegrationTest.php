@@ -44,6 +44,7 @@ class ObtainTokenIntegrationTest extends \PHPUnit_Framework_TestCase
         curl_setopt($request, CURLOPT_URL, self::SANDBOX_ENDPOINT);
         curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($request, CURLOPT_SSL_VERIFYPEER, true);
+        curl_setopt($request, CURLOPT_SSL_VERIFYHOST, 2);
         curl_setopt($request, CURLOPT_CAINFO, realpath(dirname(__FILE__)) ."/Thawte_Primary_Root_CA.pem");
         curl_setopt($request, CURLOPT_HTTPHEADER, $header);
         curl_setopt($request, CURLOPT_POST, 1);
