@@ -23,8 +23,5 @@ before_install:
 install:
   - composer install
 
-before_script:
-  - echo "curl.cainfo=$TRAVIS_BUILD_DIR/cacert.pem" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
-
 script:
   - vendor/bin/phpunit
