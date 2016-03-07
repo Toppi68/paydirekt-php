@@ -1,5 +1,7 @@
 # paydirekt PHP Client
 
+[![Build Status](https://travis-ci.org/paydirekt/paydirekt-php.svg?branch=master)](https://travis-ci.org/paydirekt/paydirekt-php)
+
 PHP client implementation and samples for the [paydirekt REST API](https://www.paydirekt.de/haendler/merchant-api.html).
 
 The source code demonstrates how to create valid requests for the paydirekt REST API using PHP.
